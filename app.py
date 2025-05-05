@@ -24,14 +24,15 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 # Load model
 @st.cache_resource
+@st.cache_resource
 def load_model():
     model = ssdlite320_mobilenet_v3_large(
         weights=None,
         weights_backbone=MobileNet_V3_Large_Weights.IMAGENET1K_V2,
         num_classes=37
     )
-    model.load_state_dict(torch.load("fasterrcnn_best.pth"))
-    model.to(device).eval()
+    model.load_state_dict(torch.load("fasterrcnn_best.pth", map_location=torch.device("cpu")))
+    model.to(torch.device("cpu")).eval()
     return model
 
 model = load_model()
