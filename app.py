@@ -30,7 +30,7 @@ def load_model():
         weights_backbone=MobileNet_V3_Large_Weights.IMAGENET1K_V2,
         num_classes=37
     )
-    model.load_state_dict(torch.load("fasterrcnn_models/fasterrcnn_best.pth", map_location=device))
+    model.load_state_dict(torch.load("fasterrcnn_best.pth"))
     model.to(device).eval()
     return model
 
